@@ -1,28 +1,46 @@
 import 'package:auto_route/auto_route.dart';
 
-import '../ui/main_list.dart';
-import '../ui/main_page.dart';
-import '../ui/main_setting.dart';
-import '../ui/se_page.dart';
-import '../ui/third_page.dart';
+import '../ui/homepage.dart';
+import '../ui/postpage.dart';
+import '../ui/setting_page.dart';
+import '../ui/single_postpage.dart';
+import '../ui/user_profilepage.dart';
+import '../ui/users_page.dart';
+
+
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
     AutoRoute(
-      page: MyMain,
-      initial: true,
+      path: '/',
+      page: HomePage,
       children: [
         AutoRoute(
-          page: MainList,
+          path: 'posts',
+          name: 'PostsRouter',
+          page: EmptyRouterPage,
+          children: [
+            AutoRoute(path: '', page: PostsPage),
+            AutoRoute(path: ':postId', page: SinglePostPage),
+          ],
         ),
         AutoRoute(
-          page: MainSetting,
+          path: 'users',
+          name: 'UsersRouter',
+          page: EmptyRouterPage,
+          children: [
+            AutoRoute(path: '', page: UsersPage),
+            AutoRoute(path: ':userId', page: UserProfilePage),
+          ],
         ),
+        AutoRoute(
+          path: 'settings',
+          name: 'SettingsRouter',
+          page: SettingsPage,
+        )
       ],
-    ),
-    AutoRoute(page: Second),
-    AutoRoute(page: ThirdMain),
+    )
   ],
 )
 class $AppRouter {}
